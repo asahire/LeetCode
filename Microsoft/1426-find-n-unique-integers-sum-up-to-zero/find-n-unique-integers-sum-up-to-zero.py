@@ -1,18 +1,12 @@
 class Solution:
     def sumZero(self, n: int) -> List[int]:
+        res = []
 
-        # result = []
-
-        # for i in range(1, n//2 + 1):
-
-        #     result.append(i)
-        #     result.append(-i)
-
+        for i in range(1, n//2 + 1):
+            res += [i, -i]
         
-        # if n%2 == 1:
-        #     result.append(0)
+        if n % 2:
+            res.append(0)
         
-        # return result
-
-        return list(range(1-n, n , 2))
+        return res
         

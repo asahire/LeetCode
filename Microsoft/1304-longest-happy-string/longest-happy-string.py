@@ -1,40 +1,27 @@
 class Solution:
     def longestDiverseString(self, a: int, b: int, c: int) -> str:
-
-        pq = []
-
-        for char_count, char in [(-a,'a'), (-b, 'b'), (-c,'c')]:
-            if char_count < 0:
-                heapq.heappush(pq, (char_count, char))
+        counts = {'a': a, 'b': b, 'c':c}
+        res = []
         
-        print(pq)
-    
-        result = []
-        while pq:
-            first_count, first_char = heapq.heappop(pq)
-            if len(result) >= 2 and result[-1] == result[-2] == first_char:
-                if not pq:
-                    break  # No other option
+        for _ in range(a+b+c):
+            order = sorted(counts, key= lambda ch: counts[ch] , reverse=True)
+            placed = False
 
-                second_count, second_char = heapq.heappop(pq)
-                result.append(second_char)
-                second_count += 1
-
-                if second_count < 0:
-                    heapq.heappush(pq, (second_count, second_char))
+            for ch in order:
+                if counts[ch] == 0:
+                    continue
+                if len(res) >= 2 and res[-1] == ch and res[-2] == ch:
+                    continue
                 
-                heapq.heappush(pq, (first_count, first_char))
-            else:
-                result.append(first_char)
+                res.append(ch)
+                counts[ch] -= 1
+                placed = True
+                break
 
-                first_count += 1
-                if first_count < 0:
-                    heapq.heappush(pq, (first_count, first_char))
+            # this is needed to handle condition in which there is no separator char avail, 
+            # so discard the unused char example 2
+            if not placed:
+                break
         
-
-        return ''.join(result)
-
-
-
-
-        
+        return "".join(res)
+            

@@ -35,7 +35,7 @@ class Solution:
         def dfs(r, c):
             if r < 0 or r >= rows or c < 0 or c >= cols:
                 return
-            if grid[r][c] != '1' or visited[r][c]:
+            if grid[r][c] == '0' or visited[r][c]:
                 return
 
             visited[r][c] = True
